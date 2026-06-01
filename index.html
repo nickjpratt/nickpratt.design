@@ -21,8 +21,30 @@
 </head>
 <body>
   <main>
-    <h1>STAGING ENVIRONMENT</h1>
+    <h1 id="env">nickpratt.design</h1>
     <p>✅ Vercel deployment is working</p>
   </main>
+  <script>
+    // Environment label is derived from the hostname at runtime, so this file
+    // stays identical across branches and never causes merge conflicts.
+    (function () {
+      var host = location.hostname;
+      var label;
+      if (host === 'nickpratt.design' || host === 'www.nickpratt.design' || host === 'nickpratt-design.vercel.app') {
+        label = 'PRODUCTION';
+      } else if (host.indexOf('-git-staging-') !== -1) {
+        label = 'STAGING';
+      } else if (host === 'localhost' || host === '127.0.0.1' || host === '') {
+        label = 'LOCAL';
+      } else if (host.indexOf('-git-') !== -1) {
+        var m = host.match(/-git-(.+?)-[a-z0-9-]+\.vercel\.app$/);
+        label = m ? 'PREVIEW · ' + m[1] : 'PREVIEW';
+      } else {
+        label = 'PREVIEW';
+      }
+      document.getElementById('env').textContent = label + ' ENVIRONMENT';
+      document.title = 'nickpratt.design — ' + label;
+    })();
+  </script>
 </body>
 </html>
