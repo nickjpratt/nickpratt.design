@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nick Pratt — v3 direction options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:wght@300..800&family=Caveat:wght@400..700&family=Archivo:wght@400..900&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --hl: #ffe14d;               /* the highlight Nick loves */
+    --display: "Bricolage Grotesque", sans-serif;
+    --sans: "Hanken Grotesk", system-ui, sans-serif;
+    --hand: "Caveat", cursive;
+    --fat: "Archivo", sans-serif;
+  }
+  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  body { font-family: var(--sans); }
+  ::selection { background: var(--hl); color: #1a1a1a; }
+
+  .mark {
+    background: var(--hl); color: #1a1a1a;
+    padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    border-radius: 2px;
+  }
+
+  section { min-height: 100vh; scroll-snap-align: start; position: relative; overflow: hidden; padding: clamp(28px,6vw,80px); display: flex; flex-direction: column; justify-content: center; }
+  .tag { position: absolute; top: 22px; left: clamp(28px,6vw,80px); font-family: var(--sans); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; opacity: .6; }
+  .ref { position: absolute; bottom: 22px; left: clamp(28px,6vw,80px); font-family: var(--sans); font-size: 13px; opacity: .55; }
+
+  /* fixed switcher */
+  .switch { position: fixed; top: 14px; right: 14px; z-index: 99; display: flex; gap: 6px; background: rgba(20,20,20,.82); backdrop-filter: blur(8px); padding: 6px; border-radius: 999px; }
+  .switch a { font-family: var(--sans); font-size: 12px; font-weight: 600; color: #eee; text-decoration: none; padding: 7px 12px; border-radius: 999px; }
+  .switch a:hover { background: rgba(255,255,255,.14); }
+
+  .reveal { opacity: 0; transform: translateY(18px); animation: rise .9s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce){ .reveal{ animation:none; opacity:1; transform:none; } }
+
+  /* ---------- 1 · SKETCHBOOK ---------- */
+  #s1 { background: #f3f3ee; color: #1a1a1a; }
+  #s1 .h { font-family: var(--display); font-weight: 700; font-size: clamp(36px,6.4vw,84px); line-height: 1.02; letter-spacing: -.03em; max-width: 16ch; }
+  #s1 .hi { font-family: var(--hand); font-size: clamp(30px,4vw,48px); color: #ff6b5e; transform: rotate(-3deg); display: inline-block; }
+  #s1 .note { font-family: var(--hand); font-size: clamp(22px,2.6vw,30px); color:#3d7dff; transform: rotate(-2deg); }
+  #s1 .sub { font-family: var(--sans); font-size: clamp(15px,1.6vw,18px); color:#555; max-width: 42ch; margin-top: 20px; }
+  #s1 .cta { display:inline-flex; gap:8px; align-items:center; margin-top:30px; background:#1a1a1a; color:#fff; font-weight:600; font-size:15px; padding:13px 22px; border-radius:999px; text-decoration:none; }
+  #s1 .blocks { display:flex; gap:14px; margin-top:40px; flex-wrap:wrap; }
+  #s1 .blk { width:130px; height:96px; border-radius:16px; border:2.5px solid #1a1a1a; display:flex; align-items:flex-end; padding:10px; font-family:var(--display); font-weight:700; box-shadow:5px 5px 0 #1a1a1a; }
+  .doodle { position:absolute; pointer-events:none; }
+
+  /* ---------- 2 · MIDNIGHT ---------- */
+  #s2 { background: radial-gradient(120% 100% at 80% -10%, #1b1930, #0f0e13 60%); color:#f2f1ec; }
+  #s2 .dot { width:9px; height:9px; border-radius:50%; background:#19c3b0; box-shadow:0 0 12px #19c3b0; display:inline-block; }
+  #s2 .status { display:flex; align-items:center; gap:9px; font-size:13px; letter-spacing:.05em; opacity:.8; margin-bottom:26px; }
+  #s2 .h { font-family: var(--display); font-weight:700; font-size: clamp(38px,6.6vw,88px); line-height:1.0; letter-spacing:-.03em; max-width:15ch; }
+  #s2 .sub { font-size: clamp(15px,1.6vw,18px); color:#b9b6c6; max-width:40ch; margin-top:22px; }
+  #s2 .cta { display:inline-flex; gap:8px; align-items:center; margin-top:30px; background:var(--hl); color:#16140c; font-weight:700; font-size:15px; padding:13px 22px; border-radius:999px; text-decoration:none; }
+  #s2 .blocks { display:flex; gap:16px; margin-top:42px; flex-wrap:wrap; }
+  #s2 .blk { width:150px; height:104px; border-radius:18px; display:flex; align-items:flex-end; padding:12px; font-family:var(--display); font-weight:700; color:#fff; }
+  #s2 .b1{ background:#ff6b5e; box-shadow:0 16px 50px -10px #ff6b5e88; }
+  #s2 .b2{ background:#19c3b0; box-shadow:0 16px 50px -10px #19c3b088; color:#06231f;}
+  #s2 .b3{ background:#9b7bff; box-shadow:0 16px 50px -10px #9b7bff88; }
+
+  /* ---------- 3 · KINETIC (yellow drench) ---------- */
+  #s3 { background: var(--hl); color:#16140c; }
+  #s3 .ey { font-family:var(--sans); font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:13px; opacity:.7; margin-bottom:18px; }
+  #s3 .big { font-family: var(--fat); font-weight:900; font-size: clamp(56px,13vw,180px); line-height:.86; letter-spacing:-.04em; text-transform:uppercase; }
+  #s3 .big span { display:inline-block; opacity:0; transform: translateY(40%) rotate(4deg); animation: pop .7s cubic-bezier(.2,1.2,.3,1) forwards; }
+  #s3 .big span:nth-child(2){ animation-delay:.08s } #s3 .big span:nth-child(3){ animation-delay:.16s }
+  @keyframes pop { to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ #s3 .big span{ animation:none; opacity:1; transform:none; } }
+  #s3 .role { font-family:var(--display); font-weight:600; font-size:clamp(18px,2.4vw,30px); margin-top:24px; max-width:24ch; }
+  #s3 .cta { display:inline-flex; gap:8px; align-items:center; margin-top:30px; background:#16140c; color:var(--hl); font-weight:700; font-size:15px; padding:13px 22px; border-radius:6px; text-decoration:none; }
+
+  /* ---------- 4 · MIDNIGHT × KINETIC ---------- */
+  #s4 { background: radial-gradient(120% 100% at 78% -12%, #211d33, #0d0c11 58%); color:#f3f2ed; }
+  #s4 .dot { width:9px; height:9px; border-radius:50%; background:#19c3b0; box-shadow:0 0 12px #19c3b0; display:inline-block; }
+  #s4 .status { display:flex; align-items:center; gap:9px; font-family:var(--sans); font-size:13px; letter-spacing:.05em; opacity:.8; margin-bottom:28px; }
+  #s4 .h { font-family: var(--fat); font-weight:800; font-size: clamp(40px,7.4vw,108px); line-height:.94; letter-spacing:-.035em; max-width:13ch; }
+  #s4 .h .line { display:block; overflow:hidden; }
+  #s4 .h .line > span { display:inline-block; transform: translateY(110%); animation: kup .8s cubic-bezier(.16,1,.3,1) forwards; }
+  #s4 .h .line:nth-child(1) > span { animation-delay:.05s }
+  #s4 .h .line:nth-child(2) > span { animation-delay:.16s }
+  #s4 .h .line:nth-child(3) > span { animation-delay:.27s }
+  @keyframes kup { to { transform:none; } }
+  /* marker-swipe highlight: the words materialize as the marker passes */
+  #s4 .swipe { color:#16140c; background:linear-gradient(var(--hl),var(--hl)) no-repeat left center; background-size:0% 100%; padding:0 .1em; border-radius:2px; animation: swipe .55s cubic-bezier(.16,1,.3,1) forwards .75s; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  @keyframes swipe { to { background-size:100% 100%; } }
+  #s4 .sub { font-family:var(--sans); font-size:clamp(15px,1.6vw,18px); color:#b6b3c2; max-width:42ch; margin-top:24px; opacity:0; animation: rise .9s cubic-bezier(.16,1,.3,1) forwards .9s; }
+  #s4 .cta { display:inline-flex; gap:8px; align-items:center; margin-top:30px; background:var(--hl); color:#16140c; font-weight:700; font-size:15px; padding:13px 22px; border-radius:999px; text-decoration:none; opacity:0; animation: rise .9s cubic-bezier(.16,1,.3,1) forwards 1.0s; }
+  #s4 .blocks { display:flex; gap:16px; margin-top:46px; flex-wrap:wrap; opacity:0; animation: rise .9s cubic-bezier(.16,1,.3,1) forwards 1.15s; }
+  #s4 .blk { width:152px; height:106px; border-radius:18px; display:flex; align-items:flex-end; padding:12px; font-family:var(--display); font-weight:700; color:#fff; }
+  #s4 .b1{ background:#ff6b5e; box-shadow:0 18px 54px -10px #ff6b5e88; }
+  #s4 .b2{ background:#19c3b0; box-shadow:0 18px 54px -10px #19c3b088; color:#06231f;}
+  #s4 .b3{ background:#9b7bff; box-shadow:0 18px 54px -10px #9b7bff88; }
+  @media (prefers-reduced-motion: reduce){
+    #s4 .h .line > span,#s4 .sub,#s4 .cta,#s4 .blocks{ animation:none; transform:none; opacity:1; }
+    #s4 .swipe{ animation:none; background-size:100% 100%; }
+  }
+</style>
+</head>
+<body>
+  <nav class="switch">
+    <a href="#s1">1 · Sketchbook</a>
+    <a href="#s2">2 · Midnight</a>
+    <a href="#s3">3 · Kinetic</a>
+    <a href="#s4">4 · Midnight × Kinetic</a>
+  </nav>
+
+  <!-- 1 SKETCHBOOK -->
+  <section id="s1">
+    <span class="tag">Direction 1 — Sketchbook</span>
+    <svg class="doodle" style="top:14%;right:10%;width:120px" viewBox="0 0 120 60" fill="none" stroke="#ff6b5e" stroke-width="3" stroke-linecap="round"><path d="M5 40 Q30 5 55 35 T110 25"/></svg>
+    <svg class="doodle" style="bottom:24%;right:18%;width:54px" viewBox="0 0 54 54" fill="none" stroke="#2bb673" stroke-width="3" stroke-linecap="round"><path d="M27 4 L33 21 L51 21 L36 32 L42 50 L27 38 L12 50 L18 32 L3 21 L21 21 Z"/></svg>
+    <div class="reveal">
+      <span class="hi">hi, i'm nick ✦</span>
+      <h1 class="h" style="margin-top:6px">I design <span class="mark">AI products</span> for the way people <em>actually</em> use technology.</h1>
+      <p class="note" style="margin-top:14px">↳ and i sweat every detail</p>
+      <p class="sub">First-gen SCAD grad from suburban Chicago. I bring software into my style, and I have ⌘Z tattooed on my wrist to prove it.</p>
+      <a class="cta" href="#">see my work →</a>
+      <div class="blocks">
+        <div class="blk" style="background:#e7b29c">Vega</div>
+        <div class="blk" style="background:#a9d3c8">COAST</div>
+        <div class="blk" style="background:#cdbce8">Abrazo</div>
+      </div>
+    </div>
+    <span class="ref">Reference: Belle Duffner — bright, hand-made, playful. (You said "incredible.")</span>
+  </section>
+
+  <!-- 2 MIDNIGHT -->
+  <section id="s2">
+    <span class="tag">Direction 2 — Midnight</span>
+    <div class="reveal">
+      <div class="status"><span class="dot"></span> Open to full-time · New York, Aug 2026</div>
+      <h1 class="h">I design <span class="mark">AI products</span> for the way people actually use technology.</h1>
+      <p class="sub">First-gen SCAD grad from suburban Chicago. I bring software into my style, ⌘Z tattoo and all.</p>
+      <a class="cta" href="#">see my work →</a>
+      <div class="blocks">
+        <div class="blk b1">Vega</div>
+        <div class="blk b2">COAST</div>
+        <div class="blk b3">Abrazo</div>
+      </div>
+    </div>
+    <span class="ref">Reference: Ariane Keona — dark, glowing color blocks. (You said "incredible.")</span>
+  </section>
+
+  <!-- 3 KINETIC -->
+  <section id="s3">
+    <span class="tag">Direction 3 — Kinetic type</span>
+    <div>
+      <p class="ey reveal">Product designer · AI focused · NYC</p>
+      <h1 class="big"><span>Nick</span> <span>Pratt</span></h1>
+      <p class="role reveal" style="animation-delay:.3s">I design <span class="mark">AI products</span> for the way people actually use technology.</p>
+      <a class="cta reveal" href="#" style="animation-delay:.4s">see my work →</a>
+    </div>
+    <span class="ref">Reference: Emmi Wu / Uday Shankar — oversized type, motion-led WOW load.</span>
+  </section>
+
+  <!-- 4 MIDNIGHT × KINETIC -->
+  <section id="s4">
+    <span class="tag">Direction 4 — Midnight × Kinetic</span>
+    <div class="status"><span class="dot"></span> Open to full-time · New York, Aug 2026</div>
+    <h1 class="h">
+      <span class="line"><span>I design</span></span>
+      <span class="line"><span><i class="swipe" style="font-style:normal">AI products</i> for the</span></span>
+      <span class="line"><span>way people actually use tech.</span></span>
+    </h1>
+    <p class="sub">First-gen SCAD grad from suburban Chicago. I bring software into my style, and I have ⌘Z tattooed on my wrist to prove it.</p>
+    <a class="cta" href="#">see my work →</a>
+    <div class="blocks">
+      <div class="blk b1">Vega</div>
+      <div class="blk b2">COAST</div>
+      <div class="blk b3">Abrazo</div>
+    </div>
+    <span class="ref">Dark cinematic canvas + glowing blocks (Midnight), oversized type that rises in with a marker-swipe highlight (Kinetic).</span>
+  </section>
+</body>
+</html>
