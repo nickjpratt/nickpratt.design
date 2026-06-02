@@ -1,52 +1,50 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
-   Nick Pratt — design system
-   Four type voices, off-white/black foundation, one yellow accent.
-   Semantic color tokens swap under [data-theme="dark"] (see below), so the
-   `bg-paper` / `text-ink` utilities respond to the theme automatically.
+   Nick Pratt — design system (v3, "Midnight × Kinetic")
+   Dark-primary, oversized type, one yellow that is both accent and highlight.
+   Semantic tokens default to dark; [data-theme="light"] overrides them.
 ---------------------------------------------------------------------------- */
 
 @theme {
   /* Type voices */
-  --font-serif: "Newsreader Variable", Georgia, Cambria, "Times New Roman", serif;
+  --font-display: "Archivo Variable", "Arial Black", sans-serif; /* the oversized name */
   --font-sans: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-hand: "Caveat Variable", "Segoe Script", cursive;
 
-  /* Light foundation (overridden for dark below) */
-  --color-paper: #f4f2ec;        /* warm off-white */
-  --color-paper-2: #efece4;      /* slightly recessed surface */
-  --color-ink: #1a1813;          /* warm near-black */
-  --color-muted: #6c685e;        /* secondary text */
-  --color-faint: #98948a;        /* tertiary / placeholders */
-  --color-line: #ddd9cd;         /* hairlines */
-  --color-accent: #c8911b;       /* the one yellow, tuned for contrast on paper */
-  --color-accent-ink: #1a1813;   /* text on an accent fill */
-  --color-highlight: #f6df8e;    /* text-selection / marker highlight */
+  /* Midnight foundation (default) */
+  --color-paper: #0d0c11;        /* near-black canvas */
+  --color-paper-2: #17151d;      /* raised surface */
+  --color-ink: #f3f2ed;          /* primary text */
+  --color-muted: #b3b0bf;        /* secondary text */
+  --color-faint: #76737f;        /* tertiary / meta */
+  --color-line: #2a2833;         /* hairlines */
+  --color-accent: #ffe14d;       /* the one yellow */
+  --color-accent-ink: #16140c;   /* text on a yellow fill */
+  --color-highlight: #ffe14d;    /* marker + ::selection */
+  --color-highlight-ink: #16140c;
 
-  /* Motion */
-  --ease-slow: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Radius scale (kept tight: editorial blocks are sharp, interactive objects soft) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.2, 1.2, 0.3, 1);
   --radius-key: 7px;
 }
 
-/* Dark foundation. Unlayered, so it wins over the @theme defaults in :root. */
-:root[data-theme="dark"] {
-  --color-paper: #15140f;
-  --color-paper-2: #1d1b15;
-  --color-ink: #ece8dd;
-  --color-muted: #9a958a;
-  --color-faint: #6f6a5f;
-  --color-line: #2c2a22;
-  --color-accent: #f2c14e;       /* brighter gold reads better on near-black */
-  --color-accent-ink: #15140f;
-  --color-highlight: #5a4f24;     /* dim marker so selected text stays legible */
+/* Light counterpart (cream-free: a cool neutral, not warm paper). */
+:root[data-theme="light"] {
+  --color-paper: #ecebee;
+  --color-paper-2: #f6f6f8;
+  --color-ink: #16140c;
+  --color-muted: #56535c;
+  --color-faint: #8a8790;
+  --color-line: #dcdbe0;
+  --color-accent: #f2c00a;       /* slightly deeper yellow keeps contrast on light */
+  --color-accent-ink: #16140c;
+  --color-highlight: #ffe14d;
+  --color-highlight-ink: #16140c;
 }
 
-/* Class-based dark variant for the rare one-off that tokens can't express */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 @layer base {
   html {
@@ -54,23 +52,18 @@
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
   }
-
   body {
     margin: 0;
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-synthesis: none;
-    transition: background-color 0.5s var(--ease-slow), color 0.5s var(--ease-slow);
+    transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out);
   }
-
-  /* The Apple text-highlight moment (system UI as content) */
   ::selection {
     background: var(--color-highlight);
-    color: var(--color-ink);
+    color: var(--color-highlight-ink);
   }
-
-  /* Focus visibility that matches the brand rather than the browser default */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
@@ -79,46 +72,33 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }
 
-/* Film grain: one fixed, non-interactive layer so it never repaints on scroll. */
+/* Film grain: one fixed, non-interactive layer, never repaints on scroll. */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.45;
+  opacity: 0.35;
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+@media (prefers-reduced-transparency: reduce) { .grain { display: none; } }
 
-@media (prefers-reduced-transparency: reduce) {
-  .grain { display: none; }
-}
-
-/* Blinking caret used by the typing component (system UI as content) */
-@keyframes caret-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
+/* Blinking caret for the typing component */
+@keyframes caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 .caret {
   display: inline-block;
-  width: 0.07em;
-  align-self: stretch;
-  margin-left: 0.04em;
-  background: currentColor;
-  animation: caret-blink 1.06s steps(1) infinite;
+  width: 0.5ch;
+  margin-left: 0.06em;
+  background: var(--color-accent);
+  animation: caret-blink 1.05s steps(1) infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .caret { animation: none; opacity: 1; }
-}
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; opacity: 1; } }

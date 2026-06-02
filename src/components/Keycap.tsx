@@ -28,7 +28,7 @@ export function Keycap({ children, size = 'md', className = '', ...rest }: Keyca
         // top bevel highlight + seated bottom edge => a real key, not a flat box
         'shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_2px_0_var(--color-line),0_4px_6px_-3px_rgba(0,0,0,0.25)]',
         'dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_2px_0_var(--color-line),0_4px_8px_-3px_rgba(0,0,0,0.6)]',
-        'transition-[transform,box-shadow] duration-150 ease-[var(--ease-slow)]',
+        'transition-[transform,box-shadow] duration-150 ease-[var(--ease-out)]',
         'hover:-translate-y-px',
         // pressed: sink into the board
         'active:translate-y-[2px] active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]',

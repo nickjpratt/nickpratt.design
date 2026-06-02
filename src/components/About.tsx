@@ -18,7 +18,7 @@ export function About() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="font-serif text-[24px] font-normal leading-[1.4] tracking-[-0.01em] text-ink md:text-[32px]">
+          <p className="font-sans text-[22px] font-medium leading-[1.45] tracking-[-0.01em] text-ink md:text-[30px]">
             I am a first-gen college grad from a suburb of Chicago, by way of SCAD
             and one formative winter in the south of France. I design AI products, I
             think a lot about how people{' '}

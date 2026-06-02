@@ -26,8 +26,8 @@ const PROJECTS: Project[] = [
     status: 'Award winner',
     cursorLabel: 'Open case study',
     hook: 'A handheld scanner that reads your skin in real time, so you stop wasting money on products that fight it.',
-    bg: '#e7b29c',
-    tone: 'dark',
+    bg: '#ff6b5e',
+    tone: 'light',
     span: 'md:col-span-7 md:row-span-2',
   },
   {
@@ -37,8 +37,8 @@ const PROJECTS: Project[] = [
     status: 'In progress',
     cursorLabel: 'In progress',
     hook: 'An AI platform that helps U.S. seaports electrify without grinding operations to a halt.',
-    bg: '#1f5e63',
-    tone: 'light',
+    bg: '#19c3b0',
+    tone: 'dark',
     span: 'md:col-span-5',
   },
   {
@@ -48,7 +48,7 @@ const PROJECTS: Project[] = [
     status: 'Award winner',
     cursorLabel: 'Open case study',
     hook: 'A wearable for managing a panic attack in the moment. Personal: I have an anxiety disorder.',
-    bg: '#5e6e57',
+    bg: '#9b7bff',
     tone: 'light',
     span: 'md:col-span-5',
   },
@@ -59,7 +59,7 @@ const PROJECTS: Project[] = [
     status: 'Under NDA',
     cursorLabel: 'Under NDA · ask me',
     hook: 'Reimagining laundry for Gen Z and Gen Alpha with a class of twenty.',
-    bg: '#2a5da8',
+    bg: '#3f7bff',
     tone: 'light',
     span: 'md:col-span-6',
   },
@@ -70,8 +70,8 @@ const PROJECTS: Project[] = [
     status: 'Selected work',
     cursorLabel: 'Selected work',
     hook: 'Confidential enterprise work, blurred for good reason. Happy to walk you through it.',
-    bg: '#b4202e',
-    tone: 'light',
+    bg: '#ffc24a',
+    tone: 'dark',
     span: 'md:col-span-6',
   },
 ]
@@ -86,8 +86,8 @@ function Tile({
   onLeave: () => void
 }) {
   const reduce = useReducedMotion()
-  const text = p.tone === 'light' ? 'text-white' : 'text-[#2a1a12]'
-  const sub = p.tone === 'light' ? 'text-white/75' : 'text-[#2a1a12]/70'
+  const text = p.tone === 'light' ? 'text-white' : 'text-[#16140c]'
+  const sub = p.tone === 'light' ? 'text-white/75' : 'text-[#16140c]/70'
 
   return (
     <motion.a
@@ -98,10 +98,10 @@ function Tile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      style={{ backgroundColor: p.bg }}
+      style={{ backgroundColor: p.bg, boxShadow: `0 26px 70px -24px ${p.bg}` }}
       className={[
-        'group relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-[14px] p-6 md:p-7',
-        'transition-transform duration-500 ease-[var(--ease-slow)] hover:-translate-y-1 md:cursor-none',
+        'group relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-[18px] p-6 md:p-7',
+        'transition-transform duration-500 ease-[var(--ease-out)] hover:-translate-y-1.5 md:cursor-none',
         p.span,
       ].join(' ')}
     >
@@ -123,7 +123,7 @@ function Tile({
       {/* big ghosted wordmark fills the visual space until real screens land */}
       <div className="relative">
         <h3
-          className={`font-serif font-normal leading-[0.95] tracking-[-0.01em] ${text} ${
+          className={`font-display font-extrabold uppercase leading-[0.9] tracking-[-0.03em] ${text} ${
             p.span.includes('col-span-7') ? 'text-[64px] md:text-[104px]' : 'text-[52px] md:text-[64px]'
           }`}
         >
@@ -162,7 +162,7 @@ export function Work() {
   return (
     <section id="work" className="mx-auto max-w-[1240px] px-6 py-24 md:px-10 md:py-32">
       <div className="mb-10 flex items-end justify-between border-b border-line pb-5">
-        <h2 className="font-serif text-[28px] font-normal tracking-tight text-ink md:text-[40px]">
+        <h2 className="font-display text-[30px] font-extrabold uppercase tracking-[-0.02em] text-ink md:text-[44px]">
           Selected work
         </h2>
         <span className="hidden font-mono text-[12px] text-faint sm:block">

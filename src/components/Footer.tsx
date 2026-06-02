@@ -8,7 +8,7 @@ export function Footer() {
 
         <a
           href="mailto:hi@nickpratt.design"
-          className="mt-2 inline-block font-serif text-[34px] font-normal leading-tight tracking-[-0.01em] text-ink underline decoration-line decoration-1 underline-offset-[6px] transition-colors duration-300 hover:decoration-accent md:text-[52px]"
+          className="mt-2 inline-block font-display text-[30px] font-extrabold uppercase tracking-[-0.02em] text-ink underline decoration-line decoration-1 underline-offset-[6px] transition-colors duration-300 hover:decoration-accent md:text-[46px]"
         >
           hi@nickpratt.design
         </a>

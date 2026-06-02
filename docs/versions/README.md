@@ -46,3 +46,28 @@ lone text portfolio in the results looked like the template trap v1 fell into.
 
 **Note:** parallax, typing, and the cursor-follow label are live-only and do not
 appear in these static screenshots. View at the dev server to judge motion.
+
+**Nick's verdict on v2:** still not convinced; may need a full redesign. Loved
+the highlight effect (incl. matching ::selection) and the work-section cursor
+hovers. Asked to use the taste + impeccable skills and study Mobbin.
+
+## v3 — "Midnight × Kinetic" (June 2, 2026) — CURRENT
+
+Full redesign after the impeccable skill flagged v1/v2 as the 2026 AI-default
+"editorial-typographic" lane (cream bg + serif + restraint; Newsreader is even
+on the banned-font list). Nick reviewed four live direction mockups
+(`/directions.html`, archived in `docs/versions/options`) and chose **Kinetic's
+layout recolored into Midnight's dark palette**.
+
+- Dark-primary (toggle + light variant kept). New tokens: near-black canvas,
+  one yellow that is both accent and the highlight Nick loves.
+- New fonts: **Archivo** (oversized display name), Geist (sans), Geist Mono
+  (meta), Caveat (handwriting). Newsreader/serif retired.
+- Hero: oversized "NICK PRATT" pops in on load, highlighted role line, the
+  **typing component rebuilt** to type with a blinking caret, then select the
+  whole line (yellow highlight) and delete it all at once before the next.
+- Work: bento grid of glowing project-color tiles + cursor-follow hover labels.
+- About + footer carried into the dark world; handwriting sign-off kept.
+
+**Still to do:** real project imagery in the work tiles (currently glowing color
+blocks); light-mode polish; case studies (Vega first).
