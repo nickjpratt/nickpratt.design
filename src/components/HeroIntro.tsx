@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useAnimate, useReducedMotion } from 'motion/react'
-import { Kerned, PRATT_KERN } from './Kerned'
+import { Kerned, NICK_KERN, PRATT_KERN } from './Kerned'
 
 const EASE = [0.65, 0, 0.35, 1] as const
 const EASE_IN = [0.7, 0, 0.84, 0] as const
 const START = { wght: 100, wdth: 62 }
-const FINAL = { wght: 900, wdth: 125 }
+const FINAL = { wght: 800, wdth: 125 }
 const FONT_SIZE = '54vh'
 const FIT = 0.9 // keep the words inside the window instead of bleeding off the edges
 // Solo NICK sits one half-line above the block centre; nudge the block down so
@@ -120,9 +120,9 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
         scope.current = el as HTMLElement
       }}
       aria-hidden
-      className="fixed inset-0 z-[55] flex flex-col items-center justify-center overflow-hidden bg-paper text-ink"
+      className="fixed inset-0 z-[55] flex select-none flex-col items-center justify-center overflow-hidden bg-paper text-ink"
     >
-      <span ref={nickM} style={measureStyle}><Kerned text="Nick" /></span>
+      <span ref={nickM} style={measureStyle}><Kerned text="Nick" kern={NICK_KERN} /></span>
       <span ref={prattM} style={measureStyle}><Kerned text="Pratt" kern={PRATT_KERN} /></span>
 
       <div className="block flex flex-col items-center will-change-transform" style={{ transform: `translateY(${BLOCK_DOWN})` }}>
@@ -130,7 +130,7 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
           className="nick origin-center will-change-transform"
           style={{ ...wordStyle, opacity: 0, ['--wght' as string]: START.wght, ['--wdth' as string]: START.wdth }}
         >
-          <Kerned text="Nick" />
+          <Kerned text="Nick" kern={NICK_KERN} />
         </span>
         <span
           className="pratt origin-center will-change-transform"
