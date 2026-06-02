@@ -93,3 +93,18 @@ accent + highlight). The yellow drench is retired.
 
 Trade-off to revisit: the point-of-view line now lives below the fold (the hero
 is pure name poster), so the first screen places Nick by name + the nav pill only.
+
+## v5 — "Archivo intro, fade to static hero" (June 2, 2026) — CURRENT
+
+Cleanup of v4 per Nick.
+
+- Name typeface back to **Archivo** (variable wght + wdth) for the intro; the
+  cinematic behavior is unchanged (NICK stretches edge-to-edge and transforms via
+  the wght/wdth axes, PRATT rises and compresses it). Typeface may change again.
+- Leading cleaned up: the two words are a single centered block with tight
+  line-height (0.82), so they sit snug with no awkward gap.
+- The intro now **fades out into a regular static hero** (`HeroName`): name,
+  point-of-view line with the highlight, the "Currently ___" typing line, and the
+  CTAs, all within the first screen. No scrolling required to see content.
+- Header untouched (the "Open to work" pill stays next to the name).
+- `HeroIntro` = the animated overlay; `HeroName` = the static hero.

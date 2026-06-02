@@ -8,8 +8,7 @@
 
 @theme {
   /* Type voices */
-  --font-serif: "Fraunces Variable", Georgia, "Times New Roman", serif; /* the hero name */
-  --font-display: "Archivo Variable", "Arial Black", sans-serif;        /* work / section headings */
+  --font-display: "Archivo Variable", "Arial Black", sans-serif;        /* the hero name + headings */
   --font-sans: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-hand: "Caveat Variable", "Segoe Script", cursive;
@@ -49,7 +48,7 @@
 
 /* Registered so the variable-font axes interpolate smoothly during the intro. */
 @property --wght { syntax: "<number>"; inherits: false; initial-value: 900; }
-@property --opsz { syntax: "<number>"; inherits: false; initial-value: 144; }
+@property --wdth { syntax: "<number>"; inherits: false; initial-value: 125; }
 
 @layer base {
   html {
