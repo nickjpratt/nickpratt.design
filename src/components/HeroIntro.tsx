@@ -12,6 +12,11 @@ const FIT = 0.9 // keep the words inside the window instead of bleeding off the 
 // it reads as vertically centred while it is alone. ~ lineHeight/2 * FONT_SIZE.
 const BLOCK_DOWN = '22vh'
 
+// Loading fill: a vertical edge that sweeps left to right. Below --fill the ink
+// is full; ahead of it the text sits at a faint (AA-readable) 50% alpha.
+const FILL_MASK =
+  'linear-gradient(to right, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)'
+
 const wordStyle: CSSProperties = {
   fontFamily: 'var(--font-display)',
   fontVariationSettings: '"wght" var(--wght), "wdth" var(--wdth)',
@@ -21,6 +26,8 @@ const wordStyle: CSSProperties = {
   textTransform: 'uppercase',
   whiteSpace: 'nowrap',
   display: 'block',
+  WebkitMaskImage: FILL_MASK,
+  maskImage: FILL_MASK,
 }
 
 const measureStyle: CSSProperties = {
@@ -82,6 +89,9 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.nick', { opacity: 0, scaleX: fn * 0.42, scaleY: 1, ['--wght']: START.wght, ['--wdth']: START.wdth, letterSpacing: '0em' }, { duration: 0 })
       animate('.pratt', { opacity: 1, scaleX: fp, scaleY: 1, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, y: '180%' }, { duration: 0 })
 
+      // Loading fill sweeps left to right, concurrent with the entrance.
+      animate('.block', { ['--fill']: ['0%', '100%'] }, { duration: 2.4, ease: [0.4, 0, 0.2, 1] })
+
       await animate('.nick', { opacity: 1 }, { duration: 0.4, ease: EASE })
       if (cancelled) return
       await animate('.nick', { scaleX: fn, scaleY: 1.7, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, letterSpacing: '-0.04em' }, { duration: 0.8, ease: EASE })
@@ -92,12 +102,8 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.block', { y: '0vh' }, { duration: 0.8, ease: EASE })
       await animate('.nick', { scaleY: 1 }, { duration: 0.8, ease: EASE })
       if (cancelled) return
-      await new Promise((r) => setTimeout(r, 150))
-      if (cancelled) return
-      // Loading fill: the faint name fills with the ink color from the bottom up.
-      await animate('.block', { ['--fill']: '100%' }, { duration: 1.7, ease: [0.4, 0, 0.2, 1] })
-      if (cancelled) return
-      await new Promise((r) => setTimeout(r, 500)) // hold at full for a beat
+      // let the concurrent fill finish, then hold at full for a beat
+      await new Promise((r) => setTimeout(r, 700))
       if (cancelled) return
       // Heartbeat: a couple of realistic lub-dub pumps.
       await animate('.block', { scale: [1, 1.06, 1.01, 1.045, 1] }, { duration: 0.72, repeat: 1, repeatDelay: 0.34, ease: [0.36, 0, 0.2, 1] })
@@ -135,10 +141,6 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
         style={{
           transform: `translateY(${BLOCK_DOWN})`,
           ['--fill' as string]: '0%',
-          WebkitMaskImage:
-            'linear-gradient(to top, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)',
-          maskImage:
-            'linear-gradient(to top, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)',
         }}
       >
         <span

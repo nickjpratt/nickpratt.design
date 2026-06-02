@@ -49,7 +49,7 @@
 /* Registered so the variable-font axes interpolate smoothly during the intro. */
 @property --wght { syntax: "<number>"; inherits: false; initial-value: 900; }
 @property --wdth { syntax: "<number>"; inherits: false; initial-value: 125; }
-@property --fill { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@property --fill { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
 
 @layer base {
   html {
