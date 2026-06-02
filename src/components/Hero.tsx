@@ -2,19 +2,11 @@ import { motion, useReducedMotion } from 'motion/react'
 import { ArrowDown } from '@phosphor-icons/react'
 import { CurrentlyTyping } from './CurrentlyTyping'
 
-const NAME = ['Nick', 'Pratt']
-
 export function Hero() {
   const reduce = useReducedMotion()
 
-  const pop = (i: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: '38%', rotate: 4 },
-          animate: { opacity: 1, y: 0, rotate: 0 },
-          transition: { duration: 0.7, delay: 0.05 + i * 0.09, ease: [0.2, 1.2, 0.3, 1] as const },
-        }
+  // Hero content settles in just as the first-load intro (HeroIntro) dissolves.
+  const INTRO_GAP = reduce ? 0 : 1.85
 
   const rise = (delay: number) =>
     reduce
@@ -22,7 +14,7 @@ export function Hero() {
       : {
           initial: { opacity: 0, y: 16 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
+          transition: { duration: 0.8, delay: INTRO_GAP + delay, ease: [0.16, 1, 0.3, 1] as const },
         }
 
   return (
@@ -46,19 +38,9 @@ export function Hero() {
           Product designer · open to full-time · NYC, Aug 2026
         </motion.div>
 
-        {/* The kinetic name */}
-        <h1 className="font-display font-extrabold uppercase leading-[0.84] tracking-[-0.04em] text-ink">
-          <span className="sr-only">Nick Pratt</span>
-          <span aria-hidden className="block whitespace-nowrap text-[clamp(40px,13vw,168px)]">
-            {NAME.map((word, i) => (
-              <span key={word} className="inline-block align-bottom">
-                <motion.span className="inline-block" {...pop(i)}>
-                  {word}
-                </motion.span>
-                {i === 0 && <span className="inline-block w-[0.25em]" />}
-              </span>
-            ))}
-          </span>
+        {/* The name (its big entrance is handled by HeroIntro) */}
+        <h1 className="block whitespace-nowrap font-display text-[clamp(40px,13vw,168px)] font-extrabold uppercase leading-[0.84] tracking-[-0.04em] text-ink">
+          Nick Pratt
         </h1>
 
         {/* Role line with the signature highlight */}
