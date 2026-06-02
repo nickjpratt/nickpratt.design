@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/anybody": "^5.2.7",
     "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource-variable/caveat": "^5.2.8",
     "@fontsource-variable/geist": "^5.2.9",

@@ -6,7 +6,7 @@ export function Hero() {
   const reduce = useReducedMotion()
 
   // Hero content settles in just as the first-load intro (HeroIntro) dissolves.
-  const INTRO_GAP = reduce ? 0 : 1.85
+  const INTRO_GAP = reduce ? 0 : 2.0
 
   const rise = (delay: number) =>
     reduce
