@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -16,9 +16,9 @@
     <script>
       (function () {
         try {
-          // Dark is the brand. Honor a saved manual choice, otherwise default dark.
+          // Yellow drench is the default. Honor a saved manual choice otherwise.
           var saved = localStorage.getItem('npp-theme');
-          document.documentElement.setAttribute('data-theme', saved || 'dark');
+          document.documentElement.setAttribute('data-theme', saved || 'light');
         } catch (e) {
           /* localStorage blocked: fall back to the dark default already on <html> */
         }

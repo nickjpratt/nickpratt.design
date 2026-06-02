@@ -25,7 +25,7 @@ function readInitialTheme(): Theme {
     const attr = document.documentElement.getAttribute('data-theme')
     if (attr === 'dark' || attr === 'light') return attr
   }
-  return 'dark'
+  return 'light'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

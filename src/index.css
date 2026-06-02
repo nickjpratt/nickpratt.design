@@ -30,18 +30,19 @@
   --radius-key: 7px;
 }
 
-/* Light counterpart (cream-free: a cool neutral, not warm paper). */
+/* Light counterpart = the yellow drench (Direction 3). The yellow IS the surface,
+   so accent + highlight invert to black-on-yellow to stay visible. */
 :root[data-theme="light"] {
-  --color-paper: #ecebee;
-  --color-paper-2: #f6f6f8;
-  --color-ink: #16140c;
-  --color-muted: #56535c;
-  --color-faint: #8a8790;
-  --color-line: #dcdbe0;
-  --color-accent: #f2c00a;       /* slightly deeper yellow keeps contrast on light */
-  --color-accent-ink: #16140c;
-  --color-highlight: #ffe14d;
-  --color-highlight-ink: #16140c;
+  --color-paper: #ffe14d;        /* the yellow drench */
+  --color-paper-2: #f6d32f;      /* slightly deeper yellow surface */
+  --color-ink: #16140c;          /* near-black text */
+  --color-muted: #4f4a38;        /* dark secondary on yellow */
+  --color-faint: #6a6348;        /* dark tertiary / meta */
+  --color-line: #dcc63c;         /* deeper-yellow hairline */
+  --color-accent: #16140c;       /* CTA + dot go black on yellow */
+  --color-accent-ink: #ffe14d;   /* yellow text on a black fill */
+  --color-highlight: #16140c;    /* inverted marker: black box */
+  --color-highlight-ink: #ffe14d;/* yellow text inside the marker */
 }
 
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));

@@ -70,7 +70,7 @@ const PROJECTS: Project[] = [
     status: 'Selected work',
     cursorLabel: 'Selected work',
     hook: 'Confidential enterprise work, blurred for good reason. Happy to walk you through it.',
-    bg: '#ffc24a',
+    bg: '#ff6fae',
     tone: 'dark',
     span: 'md:col-span-6',
   },
