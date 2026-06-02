@@ -12,7 +12,7 @@ export function Nav({ revealed = true }: { revealed?: boolean }) {
 
   return (
     <motion.header
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-0 z-50 bg-paper/80 backdrop-blur-md"
       initial={false}
       animate={{ opacity: show ? 1 : 0, y: show ? 0 : -8 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

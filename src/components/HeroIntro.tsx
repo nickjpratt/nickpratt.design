@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useAnimate, useReducedMotion } from 'motion/react'
+import { Kerned, PRATT_KERN } from './Kerned'
 
 const EASE = [0.65, 0, 0.35, 1] as const
 const EASE_IN = [0.7, 0, 0.84, 0] as const
@@ -115,21 +116,21 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       aria-hidden
       className="fixed inset-0 z-[55] flex flex-col items-center justify-center overflow-hidden bg-paper text-ink"
     >
-      <span ref={nickM} style={measureStyle}>Nick</span>
-      <span ref={prattM} style={measureStyle}>Pratt</span>
+      <span ref={nickM} style={measureStyle}><Kerned text="Nick" /></span>
+      <span ref={prattM} style={measureStyle}><Kerned text="Pratt" kern={PRATT_KERN} /></span>
 
       <div className="block flex flex-col items-center will-change-transform" style={{ transform: `translateY(${BLOCK_DOWN})` }}>
         <span
           className="nick origin-center will-change-transform"
           style={{ ...wordStyle, opacity: 0, ['--wght' as string]: START.wght, ['--wdth' as string]: START.wdth }}
         >
-          Nick
+          <Kerned text="Nick" />
         </span>
         <span
           className="pratt origin-center will-change-transform"
           style={{ ...wordStyle, ['--wght' as string]: FINAL.wght, ['--wdth' as string]: FINAL.wdth, transform: 'translateY(180%)' }}
         >
-          Pratt
+          <Kerned text="Pratt" kern={PRATT_KERN} />
         </span>
       </div>
     </div>

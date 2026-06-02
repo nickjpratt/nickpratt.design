@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowDown } from '@phosphor-icons/react'
 import { CurrentlyTyping } from './CurrentlyTyping'
+import { Kerned, PRATT_KERN } from './Kerned'
 
 /**
  * The regular, static hero. The animated intro (HeroIntro) fades out to reveal
@@ -35,7 +36,7 @@ export function HeroName({ ready = true }: { ready?: boolean }) {
         {...rise(0.05)}
         className="whitespace-nowrap font-display text-[clamp(52px,11vw,150px)] font-extrabold uppercase leading-[0.86] tracking-[-0.04em] text-ink"
       >
-        Nick Pratt
+        Nick <Kerned text="Pratt" kern={PRATT_KERN} />
       </motion.h1>
 
       <motion.p
