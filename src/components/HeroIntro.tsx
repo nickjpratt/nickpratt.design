@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useAnimate, useReducedMotion } from 'motion/react'
-import { Kerned, NICK_KERN, PRATT_KERN } from './Kerned'
+import { Kerned, NICK_KERN, PRATT_KERN, type Kern } from './Kerned'
 
 const EASE = [0.65, 0, 0.35, 1] as const
 const EASE_IN = [0.7, 0, 0.84, 0] as const
@@ -12,10 +12,10 @@ const FIT = 0.9 // keep the words inside the window instead of bleeding off the 
 // it reads as vertically centred while it is alone. ~ lineHeight/2 * FONT_SIZE.
 const BLOCK_DOWN = '22vh'
 
-// Loading fill: a vertical edge that sweeps left to right. Below --fill the ink
-// is full; ahead of it the text sits at a faint (AA-readable) 50% alpha.
-const FILL_MASK =
-  'linear-gradient(to right, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)'
+// The name is drawn as a 100%-visible outline (stroke); the solid ink fill is
+// revealed left to right by --fill, sweeping in over the outline.
+const REVEAL_MASK = 'linear-gradient(to right, #000 var(--fill), transparent var(--fill))'
+const STROKE = '3px'
 
 const wordStyle: CSSProperties = {
   fontFamily: 'var(--font-display)',
@@ -26,8 +26,23 @@ const wordStyle: CSSProperties = {
   textTransform: 'uppercase',
   whiteSpace: 'nowrap',
   display: 'block',
-  WebkitMaskImage: FILL_MASK,
-  maskImage: FILL_MASK,
+}
+
+/** A word rendered as an always-visible outline with the solid ink filling in. */
+function StrokeWord({ text, kern }: { text: string; kern?: Kern }) {
+  return (
+    <span style={{ position: 'relative', display: 'inline-block' }}>
+      <span style={{ color: 'transparent', WebkitTextStrokeWidth: STROKE, WebkitTextStrokeColor: 'var(--color-ink)' }}>
+        <Kerned text={text} kern={kern} />
+      </span>
+      <span
+        aria-hidden
+        style={{ position: 'absolute', left: 0, top: 0, color: 'var(--color-ink)', WebkitMaskImage: REVEAL_MASK, maskImage: REVEAL_MASK }}
+      >
+        <Kerned text={text} kern={kern} />
+      </span>
+    </span>
+  )
 }
 
 const measureStyle: CSSProperties = {
@@ -94,8 +109,13 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       // a final snap to 100%). Runs through the entrance and into the heartbeat.
       animate(
         '.block',
-        { ['--fill']: ['0%', '23%', '27%', '55%', '69%', '73%', '86%', '89%', '100%'] },
-        { duration: 3.8, ease: 'linear', times: [0, 0.12, 0.24, 0.44, 0.54, 0.63, 0.83, 0.91, 1] },
+        { ['--fill']: ['0%', '12%', '28%', '78%', '80%', '100%'] },
+        {
+          duration: 3.8,
+          times: [0, 0.18, 0.5, 0.66, 0.86, 1],
+          // smooth start, slow crawl, super-fast burst, a stall, then a quick finish
+          ease: ['easeInOut', 'linear', 'easeOut', 'linear', 'easeOut'],
+        },
       )
 
       await animate('.nick', { opacity: 1 }, { duration: 0.4, ease: EASE })
@@ -152,13 +172,13 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
           className="nick origin-center will-change-transform"
           style={{ ...wordStyle, opacity: 0, ['--wght' as string]: START.wght, ['--wdth' as string]: START.wdth }}
         >
-          <Kerned text="Nick" kern={NICK_KERN} />
+          <StrokeWord text="Nick" kern={NICK_KERN} />
         </span>
         <span
           className="pratt origin-center will-change-transform"
           style={{ ...wordStyle, ['--wght' as string]: FINAL.wght, ['--wdth' as string]: FINAL.wdth, transform: 'translateY(180%)' }}
         >
-          <Kerned text="Pratt" kern={PRATT_KERN} />
+          <StrokeWord text="Pratt" kern={PRATT_KERN} />
         </span>
       </div>
     </div>
