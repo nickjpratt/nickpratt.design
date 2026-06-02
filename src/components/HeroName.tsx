@@ -43,11 +43,11 @@ export function HeroName({ ready = true }: { ready?: boolean }) {
         {...rise(0.14)}
         className="mt-7 max-w-[34ch] font-sans text-[clamp(18px,2vw,26px)] font-medium leading-[1.3] text-ink"
       >
-        I design{' '}
+        I design products that give people{' '}
         <span className="bg-[var(--color-highlight)] box-decoration-clone px-1.5 text-[var(--color-highlight-ink)]">
-          AI products
-        </span>{' '}
-        for the way people actually use technology.
+          their time back
+        </span>
+        , so they can spend it on what they care about.
       </motion.p>
 
       <motion.div {...rise(0.22)} className="mt-7">
