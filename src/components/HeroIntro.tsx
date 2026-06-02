@@ -89,12 +89,13 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.nick', { opacity: 0, scaleX: fn * 0.42, scaleY: 1, ['--wght']: START.wght, ['--wdth']: START.wdth, letterSpacing: '0em' }, { duration: 0 })
       animate('.pratt', { opacity: 1, scaleX: fp, scaleY: 1, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, y: '180%' }, { duration: 0 })
 
-      // Loading fill sweeps left to right, concurrent with the entrance.
-      animate('.block', { ['--fill']: ['0%', '100%'] }, { duration: 2.4, ease: [0.4, 0, 0.2, 1] })
+      // Loading fill sweeps left to right at a steady pace, running through the
+      // entrance and on into the heartbeat (it finishes mid-heartbeat).
+      animate('.block', { ['--fill']: ['0%', '100%'] }, { duration: 3.8, ease: 'linear' })
 
       await animate('.nick', { opacity: 1 }, { duration: 0.4, ease: EASE })
       if (cancelled) return
-      await animate('.nick', { scaleX: fn, scaleY: 1.7, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, letterSpacing: '-0.04em' }, { duration: 0.8, ease: EASE })
+      await animate('.nick', { scaleX: fn, scaleY: 2.2, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, letterSpacing: '-0.04em' }, { duration: 0.8, ease: EASE })
       if (cancelled) return
       await new Promise((r) => setTimeout(r, 200))
       if (cancelled) return
@@ -102,10 +103,9 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.block', { y: '0vh' }, { duration: 0.8, ease: EASE })
       await animate('.nick', { scaleY: 1 }, { duration: 0.8, ease: EASE })
       if (cancelled) return
-      // let the concurrent fill finish, then hold at full for a beat
-      await new Promise((r) => setTimeout(r, 700))
+      await new Promise((r) => setTimeout(r, 200))
       if (cancelled) return
-      // Heartbeat: a couple of realistic lub-dub pumps.
+      // Heartbeat (the loading fill is still sweeping concurrently into it).
       await animate('.block', { scale: [1, 1.06, 1.01, 1.045, 1] }, { duration: 0.72, repeat: 1, repeatDelay: 0.34, ease: [0.36, 0, 0.2, 1] })
       if (cancelled) return
       // Final pump flies forward (old-Twitter-launch style) as the stage fades out.
