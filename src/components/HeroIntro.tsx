@@ -89,9 +89,14 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.nick', { opacity: 0, scaleX: fn * 0.42, scaleY: 1, ['--wght']: START.wght, ['--wdth']: START.wdth, letterSpacing: '0em' }, { duration: 0 })
       animate('.pratt', { opacity: 1, scaleX: fp, scaleY: 1, ['--wght']: FINAL.wght, ['--wdth']: FINAL.wdth, y: '180%' }, { duration: 0 })
 
-      // Loading fill sweeps left to right at a steady pace, running through the
-      // entrance and on into the heartbeat (it finishes mid-heartbeat).
-      animate('.block', { ['--fill']: ['0%', '100%'] }, { duration: 3.8, ease: 'linear' })
+      // Loading fill sweeps left to right with an irregular, progress-bar-like
+      // cadence (fast start, stall, steady climb, a slow crawl near the end, then
+      // a final snap to 100%). Runs through the entrance and into the heartbeat.
+      animate(
+        '.block',
+        { ['--fill']: ['0%', '23%', '27%', '55%', '69%', '73%', '86%', '89%', '100%'] },
+        { duration: 3.8, ease: 'linear', times: [0, 0.12, 0.24, 0.44, 0.54, 0.63, 0.83, 0.91, 1] },
+      )
 
       await animate('.nick', { opacity: 1 }, { duration: 0.4, ease: EASE })
       if (cancelled) return
