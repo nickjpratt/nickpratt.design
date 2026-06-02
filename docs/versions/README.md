@@ -27,3 +27,22 @@ The work list has no visuals and no reason to click; wants a bento/grid with
 imagery and cursor-follow hover labels ("Open case study", status, etc.).
 Next: Mobbin research, then redesign hero + work section, bolder and more
 distinctive, motion more present.
+
+## v2 — "Living desktop" (June 2, 2026)
+
+Mobbin-informed redesign. Key insight from research: heroes that wow have a
+visual object, not just text (Resend's 3D cube, Fabric's floating cards); the
+lone text portfolio in the results looked like the template trap v1 fell into.
+
+- Hero: a living "desktop" scene leaning into Nick's "I bring software into my
+  style." The "Currently ___" typing now lives inside a macOS **window**
+  (traffic lights, `currently.txt`); **⌘Z keycaps** and a **Figma "Nick"
+  cursor** float nearby. Everything drifts (idle float) and parallaxes to the
+  pointer. Bolder serif headline. Retired the v1 boilerplate-undo animation.
+- Work: **bento grid** of project-branded color tiles (Vega large/featured),
+  big serif wordmarks, hooks, status. **Cursor-follow hover label** ("Open case
+  study" / "In progress" / "Under NDA") that replaces the cursor over a tile.
+- About + footer unchanged from v1.
+
+**Note:** parallax, typing, and the cursor-follow label are live-only and do not
+appear in these static screenshots. View at the dev server to judge motion.
