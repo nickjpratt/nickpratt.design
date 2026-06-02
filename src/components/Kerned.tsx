@@ -26,6 +26,7 @@ export function Kerned({ text, kern }: { text: string; kern?: Kern }) {
 // spacing (to match NICK's rhythm); tuck the T into the open A|T gap; overlap the
 // two T's so their crossbars connect.
 export const PRATT_KERN: Kern = {
+  2: 0.01, // R | A
   3: -0.1, // A | T  (close the open gap so the T does not stick out)
   4: -0.14, // T | T  (connect crossbars)
 }

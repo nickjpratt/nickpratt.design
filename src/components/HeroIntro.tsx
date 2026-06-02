@@ -61,7 +61,7 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       onDone?.()
       setGone(true)
     }
-    const guard = window.setTimeout(finish, 4200)
+    const guard = window.setTimeout(finish, 6500)
 
     const run = async () => {
       // Measure each word's true width once the real font is loaded, so the
@@ -92,8 +92,14 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.block', { y: '0vh' }, { duration: 0.8, ease: EASE })
       await animate('.nick', { scaleY: 1 }, { duration: 0.8, ease: EASE })
       if (cancelled) return
-      await new Promise((r) => setTimeout(r, 150))
-      await animate(scope.current, { opacity: 0 }, { duration: 0.5, ease: EASE_IN })
+      await new Promise((r) => setTimeout(r, 260))
+      if (cancelled) return
+      // Heartbeat: a couple of realistic lub-dub pumps.
+      await animate('.block', { scale: [1, 1.06, 1.01, 1.045, 1] }, { duration: 0.72, repeat: 1, repeatDelay: 0.34, ease: [0.36, 0, 0.2, 1] })
+      if (cancelled) return
+      // Final pump flies forward (old-Twitter-launch style) as the stage fades out.
+      animate(scope.current, { opacity: 0 }, { duration: 0.55, ease: EASE_IN })
+      await animate('.block', { scale: 9 }, { duration: 0.6, ease: [0.55, 0, 0.85, 0.2] })
       window.clearTimeout(guard)
       finish()
     }
