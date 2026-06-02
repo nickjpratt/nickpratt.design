@@ -114,8 +114,10 @@
 @keyframes caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 .caret {
   display: inline-block;
-  width: 0.5ch;
-  margin-left: 0.06em;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 0.08em;
+  vertical-align: -0.14em;
   background: var(--color-accent);
   animation: caret-blink 1.05s steps(1) infinite;
 }

@@ -49,7 +49,7 @@ export function Hero() {
         {/* The kinetic name */}
         <h1 className="font-display font-extrabold uppercase leading-[0.84] tracking-[-0.04em] text-ink">
           <span className="sr-only">Nick Pratt</span>
-          <span aria-hidden className="block text-[clamp(56px,13vw,184px)]">
+          <span aria-hidden className="block whitespace-nowrap text-[clamp(40px,13vw,168px)]">
             {NAME.map((word, i) => (
               <span key={word} className="inline-block align-bottom">
                 <motion.span className="inline-block" {...pop(i)}>
