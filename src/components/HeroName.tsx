@@ -34,9 +34,10 @@ export function HeroName({ ready = true }: { ready?: boolean }) {
 
       <motion.h1
         {...rise(0.05)}
-        className="select-none whitespace-nowrap font-display text-[clamp(52px,11vw,150px)] font-extrabold uppercase leading-[0.86] tracking-[-0.04em] text-ink"
+        className="select-none font-display text-[clamp(56px,12vw,150px)] font-extrabold uppercase leading-[0.82] tracking-[-0.04em] text-ink"
       >
-        <Kerned text="Nick" kern={NICK_KERN} /> <Kerned text="Pratt" kern={PRATT_KERN} />
+        <span className="inline-block whitespace-nowrap"><Kerned text="Nick" kern={NICK_KERN} /></span>{' '}
+        <span className="inline-block whitespace-nowrap"><Kerned text="Pratt" kern={PRATT_KERN} /></span>
       </motion.h1>
 
       <motion.p
