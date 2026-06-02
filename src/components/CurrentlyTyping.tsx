@@ -3,11 +3,13 @@ import { useReducedMotion } from 'motion/react'
 
 // Specific and a little playful, never corporate. No em dashes.
 const PHRASES = [
-  'manning the front desk at Life Time, daydreaming in Figma',
-  'hunting the best Chicago dog in a brand-new city',
-  'three iced strawberry matchas into the workday',
-  'open to product design roles in New York',
-  'undoing my mistakes (thanks, ⌘Z)',
+  'sweating the small details',
+  'debating a typeface choice for too long.',
+  'considering becoming a plant parent.',
+  'kerning because I care.',
+  'still debating that typeface choice.',
+  'choosing the perfect color palette.',
+  'testing hover effects for fun.',
 ]
 
 const TYPE_MS = 52
