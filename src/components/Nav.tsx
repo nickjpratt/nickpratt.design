@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'motion/react'
 import { KeycapToggle } from './KeycapToggle'
 
 const LINKS = [
@@ -5,19 +6,26 @@ const LINKS = [
   { label: 'About', href: '#about' },
 ]
 
-export function Nav() {
+export function Nav({ revealed = true }: { revealed?: boolean }) {
+  const reduce = useReducedMotion()
+  const show = reduce ? true : revealed
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <motion.header
+      className="fixed inset-x-0 top-0 z-50"
+      initial={false}
+      animate={{ opacity: show ? 1 : 0, y: show ? 0 : -8 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+    >
       <nav className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-6 md:px-10">
-        <a
-          href="#top"
-          className="font-sans text-[15px] font-semibold tracking-tight text-ink"
-        >
-          Nick Pratt
-          <span className="ml-2 align-middle font-mono text-[11px] font-normal text-faint">
-            /prat/
+        <div className="flex items-center gap-3">
+          <a href="#top" className="font-sans text-[15px] font-semibold tracking-tight text-ink">
+            Nick Pratt
+          </a>
+          <span className="hidden items-center rounded-full border border-line px-2.5 py-1 font-mono text-[11px] tracking-tight text-muted sm:inline-flex">
+            Open to work
           </span>
-        </a>
+        </div>
 
         <div className="flex items-center gap-1 sm:gap-5">
           <ul className="hidden items-center gap-5 sm:flex">
@@ -35,6 +43,6 @@ export function Nav() {
           <KeycapToggle />
         </div>
       </nav>
-    </header>
+    </motion.header>
   )
 }

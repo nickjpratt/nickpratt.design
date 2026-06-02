@@ -1,68 +1,55 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
-   Nick Pratt — design system (v3, "Midnight × Kinetic")
-   Dark-primary, oversized type, one yellow that is both accent and highlight.
-   Semantic tokens default to dark; [data-theme="light"] overrides them.
+   Nick Pratt — design system (v4, "Fraunces poster")
+   Warm off-white / warm black foundation, Fraunces serif name treatment,
+   one yellow that is accent + highlight. Light is the default theme.
 ---------------------------------------------------------------------------- */
 
 @theme {
   /* Type voices */
-  --font-display: "Archivo Variable", "Arial Black", sans-serif; /* the oversized name */
+  --font-serif: "Fraunces Variable", Georgia, "Times New Roman", serif; /* the hero name */
+  --font-display: "Archivo Variable", "Arial Black", sans-serif;        /* work / section headings */
   --font-sans: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-hand: "Caveat Variable", "Segoe Script", cursive;
 
-  /* Midnight foundation (default) */
-  --color-paper: #0d0c11;        /* near-black canvas */
-  --color-paper-2: #17151d;      /* raised surface */
-  --color-ink: #f3f2ed;          /* primary text */
-  --color-muted: #b3b0bf;        /* secondary text */
-  --color-faint: #76737f;        /* tertiary / meta */
-  --color-line: #2a2833;         /* hairlines */
-  --color-accent: #ffe14d;       /* the one yellow */
-  --color-accent-ink: #16140c;   /* text on a yellow fill */
-  --color-highlight: #ffe14d;    /* marker + ::selection */
-  --color-highlight-ink: #16140c;
+  /* Light foundation (default): warm off-white */
+  --color-paper: #faf9f6;
+  --color-paper-2: #f1efe8;
+  --color-ink: #0e0e0e;
+  --color-muted: #57544d;
+  --color-faint: #8a877f;
+  --color-line: #e4e1d8;
+  --color-accent: #0e0e0e;        /* CTA goes ink-on-paper for punch */
+  --color-accent-ink: #faf9f6;
+  --color-highlight: #ffe14d;     /* the yellow marker + ::selection */
+  --color-highlight-ink: #0e0e0e;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-pop: cubic-bezier(0.2, 1.2, 0.3, 1);
+  --ease-cine: cubic-bezier(0.65, 0, 0.35, 1);
   --radius-key: 7px;
 }
 
-/* Light theme: a clean cool neutral for the body. Yellow lives only in the hero
-   (see .zone-yellow below). */
-:root[data-theme="light"] {
-  --color-paper: #edecee;
-  --color-paper-2: #f6f6f8;
-  --color-ink: #16140c;
-  --color-muted: #56535c;
-  --color-faint: #8a8790;
-  --color-line: #dcdbe0;
-  --color-accent: #16140c;       /* CTAs stay black-on-light for punch */
-  --color-accent-ink: #ffe14d;
-  --color-highlight: #ffe14d;    /* yellow marker reads on the neutral body */
-  --color-highlight-ink: #16140c;
+/* Dark foundation: warm black */
+:root[data-theme="dark"] {
+  --color-paper: #0e0e0e;
+  --color-paper-2: #1a1a17;
+  --color-ink: #faf9f6;
+  --color-muted: #a3a098;
+  --color-faint: #6d6a62;
+  --color-line: #2a2925;
+  --color-accent: #ffe14d;
+  --color-accent-ink: #0e0e0e;
+  --color-highlight: #ffe14d;
+  --color-highlight-ink: #0e0e0e;
 }
 
-/* The yellow drench, scoped to the hero (light theme only). Overriding the
-   color tokens on this wrapper recolors everything inside it to black-on-yellow,
-   with the highlight inverted so it stays visible. */
-:root[data-theme="light"] .zone-yellow {
-  --color-paper: #ffe14d;
-  --color-paper-2: #f6d32f;
-  --color-ink: #16140c;
-  --color-muted: #4f4a38;
-  --color-faint: #6a6348;
-  --color-line: #dcc63c;
-  --color-accent: #16140c;
-  --color-accent-ink: #ffe14d;
-  --color-highlight: #16140c;    /* inverted: black marker, yellow text */
-  --color-highlight-ink: #ffe14d;
-  background-color: var(--color-paper);
-}
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+/* Registered so the variable-font axes interpolate smoothly during the intro. */
+@property --wght { syntax: "<number>"; inherits: false; initial-value: 900; }
+@property --opsz { syntax: "<number>"; inherits: false; initial-value: 144; }
 
 @layer base {
   html {
@@ -97,18 +84,6 @@
     transition-duration: 0.001ms !important;
   }
 }
-
-/* Film grain: one fixed, non-interactive layer, never repaints on scroll. */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.35;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@media (prefers-reduced-transparency: reduce) { .grain { display: none; } }
 
 /* Blinking caret for the typing component */
 @keyframes caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }

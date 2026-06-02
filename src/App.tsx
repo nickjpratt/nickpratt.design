@@ -1,18 +1,22 @@
+import { useState } from 'react'
+import { useReducedMotion } from 'motion/react'
 import { Nav } from './components/Nav'
-import { Hero } from './components/Hero'
+import { HeroName } from './components/HeroName'
 import { HeroIntro } from './components/HeroIntro'
 import { Work } from './components/Work'
 import { About } from './components/About'
 import { Footer } from './components/Footer'
 
 function App() {
+  const reduce = useReducedMotion()
+  const [ready, setReady] = useState(false)
+
   return (
     <>
-      <div className="grain" aria-hidden />
-      <HeroIntro />
-      <Nav />
+      <Nav revealed={ready || !!reduce} />
       <main>
-        <Hero />
+        <HeroName onDone={() => setReady(true)} />
+        <HeroIntro />
         <Work />
         <About />
       </main>

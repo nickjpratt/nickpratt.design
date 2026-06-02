@@ -71,3 +71,25 @@ layout recolored into Midnight's dark palette**.
 
 **Still to do:** real project imagery in the work tiles (currently glowing color
 blocks); light-mode polish; case studies (Vega first).
+
+## v4 — "Fraunces poster" (June 2, 2026) — CURRENT
+
+Full hero rebuild to Nick's detailed spec. Foundation shifts from the yellow
+drench to warm off-white #FAF9F6 / warm black #0E0E0E (yellow stays as the
+accent + highlight). The yellow drench is retired.
+
+- `HeroName`: a full-viewport (100dvh, zero padding) two-line poster. On load,
+  "NICK" fades in thin/light, stretches edge-to-edge and physically transforms
+  via Fraunces' real variable axes (opsz 9->144, wght 100->900), then "PRATT"
+  rises from below and compresses "NICK" into the top half. 2.4s, cubic-bezier
+  (0.65,0,0.35,1). Per-word measured scaleX fills the viewport exactly (Fraunces
+  has no width axis, so scaleX does the horizontal fill).
+- Scroll parallax: NICK rises, PRATT drops, both fade by ~80vh.
+- `HeroIntro`: the inline-UI section below the poster (point-of-view line with
+  the yellow highlight, the "Currently ___" typing line, CTAs), revealed on scroll.
+- Nav gains an "Open to work" pill and fades in as the intro settles.
+- a11y: sr-only <h1> "Nick Pratt, product designer."; full reduced-motion skip.
+- Optional extras: hover "breathes" a word's weight (850<->950).
+
+Trade-off to revisit: the point-of-view line now lives below the fold (the hero
+is pure name poster), so the first screen places Nick by name + the nav pill only.
