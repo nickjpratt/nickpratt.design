@@ -16,7 +16,9 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
-const STORAGE_KEY = 'npp-theme'
+// Bumped to clear any stale manual choice saved during development, so existing
+// visitors start in "follow my device" mode again.
+const STORAGE_KEY = 'npp-theme-2'
 
 function readInitialTheme(): Theme {
   // The inline script in index.html already set data-theme before paint;
@@ -31,17 +33,37 @@ function readInitialTheme(): Theme {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(readInitialTheme)
 
+  // Reflect the current theme on <html>. We deliberately do NOT write to storage
+  // here, so an auto-detected (OS) theme is never persisted as a manual choice.
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
-    try {
-      localStorage.setItem(STORAGE_KEY, theme)
-    } catch {
-      /* storage blocked: the choice simply won't persist */
-    }
   }, [theme])
 
+  // Follow the device preference live, as long as the user hasn't toggled manually.
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const onChange = (e: MediaQueryListEvent) => {
+      try {
+        if (localStorage.getItem(STORAGE_KEY)) return // manual choice wins
+      } catch {
+        /* ignore */
+      }
+      setTheme(e.matches ? 'dark' : 'light')
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
   const toggle = useCallback(() => {
-    setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+    setTheme((t) => {
+      const next = t === 'dark' ? 'light' : 'dark'
+      try {
+        localStorage.setItem(STORAGE_KEY, next) // a manual choice persists
+      } catch {
+        /* storage blocked: the choice simply won't persist */
+      }
+      return next
+    })
   }, [])
 
   return (
