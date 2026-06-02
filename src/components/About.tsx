@@ -5,7 +5,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="mx-auto max-w-[1240px] border-t border-line px-6 py-24 md:px-10 md:py-32"
+      className="mx-auto max-w-[1240px] scroll-mt-20 border-t border-line px-6 py-24 md:px-10 md:py-32"
     >
       <div className="grid grid-cols-1 gap-12 md:grid-cols-[1fr_1.4fr] md:gap-20">
         <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-faint">

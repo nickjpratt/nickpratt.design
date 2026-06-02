@@ -30,19 +30,36 @@
   --radius-key: 7px;
 }
 
-/* Light counterpart = the yellow drench (Direction 3). The yellow IS the surface,
-   so accent + highlight invert to black-on-yellow to stay visible. */
+/* Light theme: a clean cool neutral for the body. Yellow lives only in the hero
+   (see .zone-yellow below). */
 :root[data-theme="light"] {
-  --color-paper: #ffe14d;        /* the yellow drench */
-  --color-paper-2: #f6d32f;      /* slightly deeper yellow surface */
-  --color-ink: #16140c;          /* near-black text */
-  --color-muted: #4f4a38;        /* dark secondary on yellow */
-  --color-faint: #6a6348;        /* dark tertiary / meta */
-  --color-line: #dcc63c;         /* deeper-yellow hairline */
-  --color-accent: #16140c;       /* CTA + dot go black on yellow */
-  --color-accent-ink: #ffe14d;   /* yellow text on a black fill */
-  --color-highlight: #16140c;    /* inverted marker: black box */
-  --color-highlight-ink: #ffe14d;/* yellow text inside the marker */
+  --color-paper: #edecee;
+  --color-paper-2: #f6f6f8;
+  --color-ink: #16140c;
+  --color-muted: #56535c;
+  --color-faint: #8a8790;
+  --color-line: #dcdbe0;
+  --color-accent: #16140c;       /* CTAs stay black-on-light for punch */
+  --color-accent-ink: #ffe14d;
+  --color-highlight: #ffe14d;    /* yellow marker reads on the neutral body */
+  --color-highlight-ink: #16140c;
+}
+
+/* The yellow drench, scoped to the hero (light theme only). Overriding the
+   color tokens on this wrapper recolors everything inside it to black-on-yellow,
+   with the highlight inverted so it stays visible. */
+:root[data-theme="light"] .zone-yellow {
+  --color-paper: #ffe14d;
+  --color-paper-2: #f6d32f;
+  --color-ink: #16140c;
+  --color-muted: #4f4a38;
+  --color-faint: #6a6348;
+  --color-line: #dcc63c;
+  --color-accent: #16140c;
+  --color-accent-ink: #ffe14d;
+  --color-highlight: #16140c;    /* inverted: black marker, yellow text */
+  --color-highlight-ink: #ffe14d;
+  background-color: var(--color-paper);
 }
 
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));

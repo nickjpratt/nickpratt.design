@@ -160,7 +160,7 @@ export function Work() {
   }
 
   return (
-    <section id="work" className="mx-auto max-w-[1240px] px-6 py-24 md:px-10 md:py-32">
+    <section id="work" className="mx-auto max-w-[1240px] scroll-mt-20 px-6 py-24 md:px-10 md:py-32">
       <div className="mb-10 flex items-end justify-between border-b border-line pb-5">
         <h2 className="font-display text-[30px] font-extrabold uppercase tracking-[-0.02em] text-ink md:text-[44px]">
           Selected work

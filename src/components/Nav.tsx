@@ -7,7 +7,7 @@ const LINKS = [
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-50 bg-paper/80 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50">
       <nav className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-6 md:px-10">
         <a
           href="#top"

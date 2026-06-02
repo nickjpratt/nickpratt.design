@@ -11,16 +11,18 @@ const PHRASES = [
 ]
 
 const TYPE_MS = 52
-const HOLD_FULL_MS = 1600 // pause after a line finishes typing
-const HOLD_SELECTED_MS = 600 // pause while the line sits selected, before delete
+const HOLD_FULL_MS = 1500 // pause after a line finishes typing
+const SELECT_MS = 26 // per-char shift+left-arrow selection speed
+const HOLD_SELECTED_MS = 360 // pause with the line fully selected, before delete
 
-type Phase = 'typing' | 'selected'
+type Phase = 'typing' | 'selecting'
 
 export function CurrentlyTyping() {
   const reduce = useReducedMotion()
   const [display, setDisplay] = useState(reduce ? PHRASES[0] : '')
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('typing')
+  const [sel, setSel] = useState(0) // chars selected from the right (the shift+left run)
   const current = PHRASES[idx % PHRASES.length]
 
   useEffect(() => {
@@ -29,8 +31,10 @@ export function CurrentlyTyping() {
 
     if (phase === 'typing') {
       if (display === current) {
-        // finished typing this line: hold, then select the whole thing
-        t = window.setTimeout(() => setPhase('selected'), HOLD_FULL_MS)
+        t = window.setTimeout(() => {
+          setPhase('selecting')
+          setSel(0)
+        }, HOLD_FULL_MS)
       } else {
         t = window.setTimeout(
           () => setDisplay(current.slice(0, display.length + 1)),
@@ -38,16 +42,23 @@ export function CurrentlyTyping() {
         )
       }
     } else {
-      // line is selected: hold a beat, then delete it all and start the next
-      t = window.setTimeout(() => {
-        setDisplay('')
-        setIdx((i) => (i + 1) % PHRASES.length)
-        setPhase('typing')
-      }, HOLD_SELECTED_MS)
+      // selecting: caret walks left, growing the highlight from the end
+      if (sel >= display.length) {
+        t = window.setTimeout(() => {
+          setDisplay('')
+          setSel(0)
+          setIdx((i) => (i + 1) % PHRASES.length)
+          setPhase('typing')
+        }, HOLD_SELECTED_MS)
+      } else {
+        t = window.setTimeout(() => setSel((s) => s + 1), SELECT_MS)
+      }
     }
 
     return () => clearTimeout(t)
-  }, [display, phase, idx, reduce, current])
+  }, [display, phase, sel, idx, reduce, current])
+
+  const split = display.length - sel // caret position / start of selection
 
   return (
     <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -55,10 +66,14 @@ export function CurrentlyTyping() {
         Currently
       </span>
       <span className="font-sans text-[17px] leading-[1.4] text-ink md:text-[19px]">
-        {phase === 'selected' && !reduce ? (
-          <mark className="rounded-[2px] bg-[var(--color-highlight)] px-0.5 text-[var(--color-highlight-ink)]">
-            {display}
-          </mark>
+        {phase === 'selecting' && !reduce ? (
+          <>
+            {display.slice(0, split)}
+            <span className="caret" aria-hidden />
+            <span className="bg-[var(--color-highlight)] text-[var(--color-highlight-ink)]">
+              {display.slice(split)}
+            </span>
+          </>
         ) : (
           <>
             {display}
