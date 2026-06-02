@@ -49,6 +49,7 @@
 /* Registered so the variable-font axes interpolate smoothly during the intro. */
 @property --wght { syntax: "<number>"; inherits: false; initial-value: 900; }
 @property --wdth { syntax: "<number>"; inherits: false; initial-value: 125; }
+@property --fill { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
 
 @layer base {
   html {
@@ -95,4 +96,6 @@
   background: var(--color-accent);
   animation: caret-blink 1.05s steps(1) infinite;
 }
+/* Solid (non-blinking) caret while actively typing or selecting. */
+.caret-steady { animation: none; opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .caret { animation: none; opacity: 1; } }

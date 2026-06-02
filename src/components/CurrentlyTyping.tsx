@@ -3,7 +3,7 @@ import { useReducedMotion } from 'motion/react'
 
 // Specific and a little playful, never corporate. No em dashes.
 const PHRASES = [
-  'sweating the small details',
+  'sweating the small details.',
   'debating a typeface choice for too long.',
   'considering becoming a plant parent.',
   'kerning because I care.',
@@ -61,6 +61,9 @@ export function CurrentlyTyping() {
   }, [display, phase, sel, idx, reduce, current])
 
   const split = display.length - sel // caret position / start of selection
+  // The caret blinks only when idle (holding a finished line); it stays solid
+  // while actively typing or selecting.
+  const idle = phase === 'typing' && display === current
 
   return (
     <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -71,7 +74,7 @@ export function CurrentlyTyping() {
         {phase === 'selecting' && !reduce ? (
           <>
             {display.slice(0, split)}
-            <span className="caret" aria-hidden />
+            <span className="caret caret-steady" aria-hidden />
             <span className="bg-[var(--color-highlight)] text-[var(--color-highlight-ink)]">
               {display.slice(split)}
             </span>
@@ -79,7 +82,7 @@ export function CurrentlyTyping() {
         ) : (
           <>
             {display}
-            {!reduce && <span className="caret" aria-hidden />}
+            {!reduce && <span className={idle ? 'caret' : 'caret caret-steady'} aria-hidden />}
           </>
         )}
       </span>

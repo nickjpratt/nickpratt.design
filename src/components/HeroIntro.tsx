@@ -92,7 +92,12 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       animate('.block', { y: '0vh' }, { duration: 0.8, ease: EASE })
       await animate('.nick', { scaleY: 1 }, { duration: 0.8, ease: EASE })
       if (cancelled) return
-      await new Promise((r) => setTimeout(r, 260))
+      await new Promise((r) => setTimeout(r, 150))
+      if (cancelled) return
+      // Loading fill: the faint name fills with the ink color from the bottom up.
+      await animate('.block', { ['--fill']: '100%' }, { duration: 1.7, ease: [0.4, 0, 0.2, 1] })
+      if (cancelled) return
+      await new Promise((r) => setTimeout(r, 500)) // hold at full for a beat
       if (cancelled) return
       // Heartbeat: a couple of realistic lub-dub pumps.
       await animate('.block', { scale: [1, 1.06, 1.01, 1.045, 1] }, { duration: 0.72, repeat: 1, repeatDelay: 0.34, ease: [0.36, 0, 0.2, 1] })
@@ -125,7 +130,17 @@ export function HeroIntro({ onDone }: { onDone?: () => void }) {
       <span ref={nickM} style={measureStyle}><Kerned text="Nick" kern={NICK_KERN} /></span>
       <span ref={prattM} style={measureStyle}><Kerned text="Pratt" kern={PRATT_KERN} /></span>
 
-      <div className="block flex flex-col items-center will-change-transform" style={{ transform: `translateY(${BLOCK_DOWN})` }}>
+      <div
+        className="block flex flex-col items-center will-change-transform"
+        style={{
+          transform: `translateY(${BLOCK_DOWN})`,
+          ['--fill' as string]: '0%',
+          WebkitMaskImage:
+            'linear-gradient(to top, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)',
+          maskImage:
+            'linear-gradient(to top, #000 0%, #000 var(--fill), rgba(0,0,0,0.5) var(--fill), rgba(0,0,0,0.5) 100%)',
+        }}
+      >
         <span
           className="nick origin-center will-change-transform"
           style={{ ...wordStyle, opacity: 0, ['--wght' as string]: START.wght, ['--wdth' as string]: START.wdth }}
